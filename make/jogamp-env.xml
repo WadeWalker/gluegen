@@ -52,9 +52,9 @@
                     <equals arg1="${ant.java.version}" arg2="1.6"/>
                     <equals arg1="${ant.java.version}" arg2="1.7"/>
                     <equals arg1="${ant.java.version}" arg2="1.8"/>
-                    <equals arg1="${ant.java.version}" arg2="1.9"/>
-                    <equals arg1="${ant.java.version}" arg2="2.0"/>
-                    <equals arg1="${ant.java.version}" arg2="2.1"/>
+                    <equals arg1="${ant.java.version}" arg2="9"/>
+                    <equals arg1="${ant.java.version}" arg2="10"/>
+                    <equals arg1="${ant.java.version}" arg2="11"/>
                 </or>
             </not>
         </condition>
@@ -72,9 +72,9 @@
     <condition property="javadoc.xarg1" value="-Xdoclint:none" else="-J-Ddummy=val">
         <or>
             <equals arg1="${ant.java.version}" arg2="1.8"/>
-            <equals arg1="${ant.java.version}" arg2="1.9"/>
-            <equals arg1="${ant.java.version}" arg2="2.0"/>
-            <equals arg1="${ant.java.version}" arg2="2.1"/>
+            <equals arg1="${ant.java.version}" arg2="9"/>
+            <equals arg1="${ant.java.version}" arg2="10"/>
+            <equals arg1="${ant.java.version}" arg2="11"/>
         </or>
     </condition>
     <echo message="javadoc.xarg1              ${javadoc.xarg1}"/>
