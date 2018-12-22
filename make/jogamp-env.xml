@@ -148,25 +148,17 @@
         </not>
     </condition>
 
-    <condition property="target.rt.jar" value="${env.TARGET_RT_JAR}">
-        <not>
-         <equals arg1="${env.TARGET_RT_JAR}" arg2="$${env.TARGET_RT_JAR}" casesensitive="true" />
-        </not>
-    </condition>
-
-    <fail message="You need to specify all properties 'target.sourcelevel', 'target.targetlevel' and 'target.rt.jar' or none at all.">
+    <fail message="You need to specify both properties 'target.sourcelevel', 'target.targetlevel' or neither of them.">
       <condition>
         <and>
             <or>
               <isset property="target.sourcelevel"/>
               <isset property="target.targetlevel"/>
-              <isset property="target.rt.jar"/>
             </or>
             <not>
               <and>
                   <isset property="target.sourcelevel"/>
                   <isset property="target.targetlevel"/>
-                  <isset property="target.rt.jar"/>
               </and>
             </not>
         </and>
@@ -177,68 +169,31 @@
           <and>
               <isset property="target.sourcelevel"/>
               <isset property="target.targetlevel"/>
-              <isset property="target.rt.jar"/>
           </and>
     </condition>
 
     <property name="target.sourcelevel"       value="${ant.java.version}" />      <!-- default fallback values -->
     <property name="target.targetlevel"       value="${ant.java.version}" />      <!-- default fallback values -->
-    <!-- Default value for std Java (incl. Java7 on OS X) -->
-    <condition property="target.rt.jar"
-               value="${java.home}/lib/rt.jar">
-               <available file="${java.home}/lib/rt.jar"/>
-    </condition>
-    <!-- Default fallback value for Java6 OS X -->
-    <condition property="target.rt.jar"
-               value="${java.home}/../Classes/classes.jar">
-               <available file="${java.home}/../Classes/classes.jar"/>
-    </condition>
     <!-- Default fallback value on std Java -->
     <echo message="target.user.set            ${target.user.set}"/>
     <echo message="target.sourcelevel         ${target.sourcelevel}"/>
     <echo message="target.targetlevel         ${target.targetlevel}"/>
-    <echo message="target.rt.jar              ${target.rt.jar}"/>
-    <fail message="No target.rt.jar specified not found.">
-      <condition>
-        <not>
-          <isset property="target.rt.jar"/>
-        </not>
-      </condition>
-    </fail>
 
     <property name="host.sourcelevel"         value="${ant.java.version}" />      <!-- default values for compile time components -->
     <property name="host.targetlevel"         value="${ant.java.version}" />      <!-- default values for compile time components -->
-    <!-- Default value for std Java (incl. Java7 on OS X) -->
-    <condition property="host.rt.jar"
-               value="${java.home}/lib/rt.jar">
-               <available file="${java.home}/lib/rt.jar"/>
-    </condition>
-    <!-- Default fallback value for Java6 OS X -->
-    <condition property="host.rt.jar"
-               value="${java.home}/../Classes/classes.jar">
-               <available file="${java.home}/../Classes/classes.jar"/>
-    </condition>
     <echo message="host.sourcelevel           ${host.sourcelevel}"/>
     <echo message="host.targetlevel           ${host.targetlevel}"/>
-    <echo message="host.rt.jar                ${host.rt.jar}"/>
-    <fail message="No host.rt.jar specified not found.">
-      <condition>
-        <not>
-          <isset property="host.rt.jar"/>
-        </not>
-      </condition>
-    </fail>
 
     <fail message="Unsupported Target Java version (sourcelevel): ${target.sourcelevel}. Make sure that the version of the Java compiler is 1.6 (6.0) or greater.">
         <condition>
             <not>
                 <or>
-                    <contains string="${target.sourcelevel}" substring="1.6" casesensitive="false" />
-                    <contains string="${target.sourcelevel}" substring="1.7" casesensitive="false" />
-                    <contains string="${target.sourcelevel}" substring="1.8" casesensitive="false" />
-                    <contains string="${target.sourcelevel}" substring="1.9" casesensitive="false" />
-                    <contains string="${target.sourcelevel}" substring="2.0" casesensitive="false" />
-                    <contains string="${target.sourcelevel}" substring="2.1" casesensitive="false" />
+                    <equals arg1="${target.sourcelevel}" arg2="1.6" />
+                	<equals arg1="${target.sourcelevel}" arg2="1.7" />
+                	<equals arg1="${target.sourcelevel}" arg2="1.8" />
+                	<equals arg1="${target.sourcelevel}" arg2="9" />
+                	<equals arg1="${target.sourcelevel}" arg2="10" />
+                	<equals arg1="${target.sourcelevel}" arg2="11" />
                 </or>
             </not>
         </condition>
@@ -247,12 +202,12 @@
         <condition>
             <not>
                 <or>
-                    <contains string="${target.targetlevel}" substring="1.6" casesensitive="false" />
-                    <contains string="${target.targetlevel}" substring="1.7" casesensitive="false" />
-                    <contains string="${target.targetlevel}" substring="1.8" casesensitive="false" />
-                    <contains string="${target.targetlevel}" substring="1.9" casesensitive="false" />
-                    <contains string="${target.targetlevel}" substring="2.0" casesensitive="false" />
-                    <contains string="${target.targetlevel}" substring="2.1" casesensitive="false" />
+                    <equals arg1="${target.targetlevel}" arg2="1.6" />
+                    <equals arg1="${target.targetlevel}" arg2="1.7" />
+                    <equals arg1="${target.targetlevel}" arg2="1.8" />
+                    <equals arg1="${target.targetlevel}" arg2="9" />
+                    <equals arg1="${target.targetlevel}" arg2="10" />
+                    <equals arg1="${target.targetlevel}" arg2="11" />
                 </or>
             </not>
         </condition>

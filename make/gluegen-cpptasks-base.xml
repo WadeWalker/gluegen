@@ -203,11 +203,11 @@
     <!-- No 32bit binaries on OSX since Java7 -->
     <condition property="macosx32" value="false" else="true">
         <or>
-            <contains string="${ant.java.version}" substring="1.7" casesensitive="false" />
-            <contains string="${ant.java.version}" substring="1.8" casesensitive="false" />
-            <contains string="${ant.java.version}" substring="9" casesensitive="false" />
-            <contains string="${ant.java.version}" substring="10" casesensitive="false" />
-            <contains string="${ant.java.version}" substring="11" casesensitive="false" />
+        	<equals arg1="${ant.java.version}" arg2="1.7" />
+        	<equals arg1="${ant.java.version}" arg2="1.8" />
+        	<equals arg1="${ant.java.version}" arg2="9" />
+        	<equals arg1="${ant.java.version}" arg2="10" />
+        	<equals arg1="${ant.java.version}" arg2="11" />
         </or>
     </condition>
 
@@ -1669,8 +1669,7 @@
            includeAntRuntime="false"
            encoding="UTF-8"
            source="${target.sourcelevel}" 
-           target="${target.targetlevel}" 
-           bootclasspath="${target.rt.jar}">
+           target="${target.targetlevel}">
         <src path="${nativejarfile.tmpdir}/java" />
       </javac>
       <jar destfile="@{nativejarfile}" manifest="@{manifestfile}" filesonly="true">

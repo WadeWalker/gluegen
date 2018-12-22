@@ -718,8 +718,7 @@
            memoryMaximumSize="${javac.memorymax}"
            encoding="UTF-8"
            source="${target.sourcelevel}" 
-           target="${target.targetlevel}" 
-           bootclasspath="${target.rt.jar}"
+           target="${target.targetlevel}"
            debug="${javacdebug}" debuglevel="${javacdebuglevel}">
       <src path="${src.java}" />
       <src path="${src.generated.java}" />
@@ -733,21 +732,14 @@
                  excludes="**/*.java"/>
     </copy>
 
-    <!-- Compile gluegen (compile time).
-
-         Uses host.rt.jar, since we require 'com.sun.tools.doclets.Taglet',
-         w/o it breaks build on OSX w/ Java6 compiler. 
-         Surprisingly it works on other platforms, which seems to pick classes
-         outside of the 'bootclasspath'.
-      -->
+    <!-- Compile gluegen (compile time). -->
     <javac destdir="${classes}"
            includeAntRuntime="true"
            excludes="${gluegen.excludes.all} ${gluegen-rt.classes} ${java.part.android}"
            memoryMaximumSize="${javac.memorymax}"
            encoding="UTF-8"
            source="${target.sourcelevel}"
-           target="${target.targetlevel}" 
-           bootclasspath="${host.rt.jar}"
+           target="${target.targetlevel}"
            debug="${javacdebug}" debuglevel="${javacdebuglevel}">
       <src path="${src.jcpp}" />
       <src path="${src.java}" />
@@ -903,8 +895,7 @@
            memoryMaximumSize="${javac.memorymax}"
            encoding="UTF-8"
            source="${target.sourcelevel}" 
-           target="${target.targetlevel}" 
-           bootclasspath="${target.rt.jar}"
+           target="${target.targetlevel}"
            debug="${javacdebug}" debuglevel="${javacdebuglevel}">
       <src path="${src.java}" />
       <src path="${src.generated.java}" />
@@ -963,8 +954,7 @@
            memoryMaximumSize="${javac.memorymax}"
            encoding="UTF-8"
            source="${target.sourcelevel}" 
-           target="${target.targetlevel}" 
-           bootclasspath="${target.rt.jar}"
+           target="${target.targetlevel}"
            debug="${javacdebug}" debuglevel="${javacdebuglevel}">
       <src path="${src.java}" />
       <classpath refid="android.classpath" />

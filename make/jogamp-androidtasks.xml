@@ -159,8 +159,7 @@
         <echo>aapt.signed ${m.aapt.apkbasename}: compiling R.java...</echo>
         <javac encoding="${m.aapt.java.encoding}"
             source="${target.sourcelevel}" 
-            target="${target.targetlevel}" 
-            bootclasspath="${target.rt.jar}"
+            target="${target.targetlevel}"
             debug="false" extdirs=""
             destdir="${m.aapt.build.apk}/temp/classes"
             verbose="true">
