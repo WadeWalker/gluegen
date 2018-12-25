@@ -721,8 +721,8 @@
     </javac>
 
     <!-- move platform-specific native headers into the right directories -->
-    <move file="${src.generated.c}/jogamp_common_os_UnixDynamicLinkerImpl.h" todir="${src.generated.c}/Unix"/>
-    <move file="${src.generated.c}/jogamp_common_os_WindowsDynamicLinkerImpl.h" todir="${src.generated.c}/Windows"/>
+    <move file="${src.generated.c}/jogamp_common_os_UnixDynamicLinkerImpl.h" todir="${src.generated.c}/Unix" failonerror="false" quiet="true"/>
+    <move file="${src.generated.c}/jogamp_common_os_WindowsDynamicLinkerImpl.h" todir="${src.generated.c}/Windows" failonerror="false" quiet="true"/>
 
     <!-- make non-java code available in classpath -->
     <copy todir="${classes}">
