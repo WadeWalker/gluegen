@@ -437,8 +437,6 @@ public final class NativeLibrary implements DynamicLookupHelper {
         }
     }
 
-    // The idea to ask the ClassLoader to find the library is borrowed
-    // from the LWJGL library
     final String clPath = findLibrary(libName, loader);
     if (clPath != null) {
       paths.add(clPath);
@@ -598,61 +596,12 @@ public final class NativeLibrary implements DynamicLookupHelper {
     }
   }
 
-  private static boolean initializedFindLibraryMethod = false;
-  private static Method  findLibraryMethod = null;
-  private static final String findLibraryImpl(final String libName, final ClassLoader loader) {
-    if (loader == null) {
-      return null;
-    }
-    if (!initializedFindLibraryMethod) {
-      AccessController.doPrivileged(new PrivilegedAction<Object>() {
-          @Override
-          public Object run() {
-            try {
-              findLibraryMethod = ClassLoader.class.getDeclaredMethod("findLibrary",
-                                                                      new Class[] { String.class });
-              findLibraryMethod.setAccessible(true);
-            } catch (final Exception e) {
-              // Fail silently disabling this functionality
-            }
-            initializedFindLibraryMethod = true;
-            return null;
-          }
-        });
-    }
-    if (findLibraryMethod != null) {
-      try {
-        return AccessController.doPrivileged(new PrivilegedAction<String>() {
-            @Override
-            public String run() {
-              try {
-                return (String) findLibraryMethod.invoke(loader, new Object[] { libName });
-              } catch (final Exception e) {
-                throw new RuntimeException(e);
-              }
-            }
-          });
-      } catch (final Exception e) {
-        if (DEBUG) {
-          e.printStackTrace();
-        }
-        // Fail silently and continue with other search algorithms
-      }
-    }
-    return null;
-  }
   public static final String findLibrary(final String libName, final ClassLoader loader) {
     String res = null;
     if(TempJarCache.isInitialized()) {
         res = TempJarCache.findLibrary(libName);
         if (DEBUG) {
           System.err.println("NativeLibrary.findLibrary(<"+libName+">) (TempJarCache): "+res);
-        }
-    }
-    if(null == res) {
-        res = findLibraryImpl(libName, loader);
-        if (DEBUG) {
-          System.err.println("NativeLibrary.findLibrary(<"+libName+">, "+loader+") (CL): "+res);
         }
     }
     return res;
